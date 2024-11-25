@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/continentFragment">
+
+    <fragment
+        android:id="@+id/continentFragment"
+        android:name="com.example.m3lesson6_recycleviewkotlin.ContinentFragment"
+        android:label="fragment_continent"
+        tools:layout="@layout/fragment_continent">
+        <action
+            android:id="@+id/action_continentFragment_to_countryFragment"
+            app:destination="@id/countryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fall_down"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/countryFragment"
+        android:name="com.example.m3lesson6_recycleviewkotlin.CountryFragment"
+        android:label="fragment_country"
+        tools:layout="@layout/fragment_country">
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_countryFragment_to_cityFragment"
+            app:destination="@id/cityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fall_down"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cityFragment"
+        android:name="com.example.m3lesson6_recycleviewkotlin.CityFragment"
+        android:label="fragment_city"
+        tools:layout="@layout/fragment_city">
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_cityFragment_to_cityDetailFragment"
+            app:destination="@id/cityDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fall_down"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cityDetailFragment"
+        android:name="com.example.m3lesson6_recycleviewkotlin.CityDetailFragment"
+        android:label="fragment_city_detail"
+        tools:layout="@layout/fragment_city_detail">
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="image"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_cityDetailFragment_to_imageFullscreenFragment"
+            app:destination="@id/imageFullscreenFragment"
+            app:enterAnim="@anim/zoom_in"
+            app:exitAnim="@anim/fall_down"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/zoom_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/imageFullscreenFragment"
+        android:name="com.example.m3lesson6_recycleviewkotlin.ImageFullscreenFragment"
+        android:label="fragment_image_fullscreen"
+        tools:layout="@layout/fragment_image_fullscreen">
+        <argument
+            android:name="image"
+            app:argType="string" />
+    </fragment>
+</navigation>

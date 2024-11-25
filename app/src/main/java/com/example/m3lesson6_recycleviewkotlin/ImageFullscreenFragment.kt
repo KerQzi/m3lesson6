@@ -23,14 +23,12 @@ class ImageFullscreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cityImage = arguments?.getString("imageUrl") ?: ""
+        val cityImage = ImageFullscreenFragmentArgs.fromBundle(requireArguments()).image
         Glide.with(binding.imageView).load(cityImage).into(binding.imageView)
 
-        setSharedElementEnterTransition(
-            TransitionInflater.from(requireContext())
-                .inflateTransition(android.R.transition.move)
-        )
-
+//        sharedElementEnterTransition = TransitionInflater.from(requireContext())
+//            .inflateTransition(android.R.transition.move)
+//
         binding.imageView.setOnClickListener{
             parentFragmentManager.popBackStack()
         }

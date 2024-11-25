@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.m3lesson6_recycleviewkotlin.databinding.FragmentCityDetailBinding
 
@@ -24,8 +25,8 @@ class CityDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cityName = arguments?.getString("cityName") ?: ""
-        val cityImage = arguments?.getString("cityImageUrl") ?: ""
+        val cityName = CityDetailFragmentArgs.fromBundle(requireArguments()).name
+        val cityImage = CityDetailFragmentArgs.fromBundle(requireArguments()).image
 
         setParametersForCityDetail(cityName, cityImage)
         openImageFullscreen()
@@ -38,23 +39,25 @@ class CityDetailFragment : Fragment() {
 
     private fun openImageFullscreen(){
         binding.imageView.setOnClickListener{
-            val imageFullscreenFragment = ImageFullscreenFragment()
-            val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
-            val bundle = Bundle()
-            val cityImage = arguments?.getString("cityImageUrl") ?: ""
-
-            transaction.addSharedElement(binding.imageView, "sharedImage")
-            transaction.replace(R.id.fragment_container_view, imageFullscreenFragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
-
-            bundle.putString("imageUrl", cityImage)
-            imageFullscreenFragment.arguments = bundle
-
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container_view, imageFullscreenFragment)
-                .addToBackStack(null)
-                .commit()
+//            val imageFullscreenFragment = ImageFullscreenFragment()
+//            val transaction: FragmentTransaction = requireActivity().supportFragmentManager.beginTransaction()
+////            val bundle = Bundle()
+            val cityImage = CityDetailFragmentArgs.fromBundle(requireArguments()).image
+//
+//            transaction.addSharedElement(binding.imageView, "sharedImage")
+//            transaction.replace(R.id.fragment_container_view, imageFullscreenFragment)
+//            transaction.addToBackStack(null)
+//            transaction.commit()
+//
+////            bundle.putString("imageUrl", cityImage)
+////            imageFullscreenFragment.arguments = bundle
+////
+////            parentFragmentManager.beginTransaction()
+////                .replace(R.id.fragment_container_view, imageFullscreenFragment)
+////                .addToBackStack(null)
+////                .commit()
+            val action = CityDetailFragmentDirections.actionCityDetailFragmentToImageFullscreenFragment(cityImage)
+            findNavController().navigate(action)
         }
     }
 }

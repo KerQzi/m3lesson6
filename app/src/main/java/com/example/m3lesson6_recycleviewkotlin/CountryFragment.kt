@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.m3lesson6_recycleviewkotlin.databinding.FragmentCountryBinding
 import com.google.gson.Gson
@@ -26,7 +27,7 @@ class CountryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val continentName = arguments?.getString("continentName") ?: ""
+        val continentName = CountryFragmentArgs.fromBundle(requireArguments()).name
 
         adapter = LocationAdapter(countryList, requireContext()) { item -> openCityFragment(item) }
         binding.recycleView.layoutManager = LinearLayoutManager(requireContext())
@@ -53,15 +54,19 @@ class CountryFragment : Fragment() {
     }
 
     private fun openCityFragment(country: Location) {
-        val cityFragment = CityFragment()
-        val bundle = Bundle()
-        bundle.putString("countryName", country.name)
-        cityFragment.arguments = bundle
+//        val cityFragment = CityFragment()
+//        val bundle = Bundle()
+//        bundle.putString("countryName", country.name)
+//        cityFragment.arguments = bundle
+//        countryList.clear()
+//
+//        parentFragmentManager.beginTransaction()
+//            .replace(R.id.fragment_container_view, cityFragment)
+//            .addToBackStack(null)
+//            .commit()
+        val countryName = country.name
+        val action = CountryFragmentDirections.actionCountryFragmentToCityFragment(countryName)
+        findNavController().navigate(action)
         countryList.clear()
-
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view, cityFragment)
-            .addToBackStack(null)
-            .commit()
     }
 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.m3lesson6_recycleviewkotlin.databinding.FragmentCountryBinding
 import com.google.gson.Gson
@@ -26,7 +27,7 @@ class CityFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val countryName = arguments?.getString("countryName") ?: ""
+        val countryName = CityFragmentArgs.fromBundle(requireArguments()).name
 
         adapter = LocationAdapter(cityList, requireContext()) { item -> openCityDetailFragment(item) }
         binding.recycleView.layoutManager = LinearLayoutManager(requireContext())
@@ -53,16 +54,21 @@ class CityFragment : Fragment() {
     }
 
     private fun openCityDetailFragment(city: Location) {
-        val cityDetailFragment = CityDetailFragment()
-        val bundle = Bundle()
-        bundle.putString("cityName", city.name)
-        bundle.putString("cityImageUrl", city.imageUrl)
-        cityDetailFragment.arguments = bundle
+//        val cityDetailFragment = CityDetailFragment()
+//        val bundle = Bundle()
+//        bundle.putString("cityName", city.name)
+//        bundle.putString("cityImageUrl", city.imageUrl)
+//        cityDetailFragment.arguments = bundle
+//        cityList.clear()
+//
+//        parentFragmentManager.beginTransaction()
+//            .replace(R.id.fragment_container_view, cityDetailFragment)
+//            .addToBackStack(null)
+//            .commit()
+        val cityName = city.name
+        val cityImage = city.imageUrl
+        val action = CityFragmentDirections.actionCityFragmentToCityDetailFragment(cityName, cityImage)
+        findNavController().navigate(action)
         cityList.clear()
-
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view, cityDetailFragment)
-            .addToBackStack(null)
-            .commit()
     }
 }

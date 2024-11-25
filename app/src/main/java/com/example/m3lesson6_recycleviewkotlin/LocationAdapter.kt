@@ -31,6 +31,7 @@ class LocationAdapter
     }
 
     override fun getItemCount(): Int = items.size
+    
 
     inner class ViewHolder(private val binding: ItemLocationBinding) :
         RecyclerView.ViewHolder(binding.root){

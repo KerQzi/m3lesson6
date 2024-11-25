@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.navigateUp
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.m3lesson6_recycleviewkotlin.databinding.ActivityMainBinding
 import com.example.m3lesson6_recycleviewkotlin.databinding.FragmentContinentBinding
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.io.Serializable
 
 
 class ContinentFragment : Fragment() {
@@ -38,16 +41,20 @@ class ContinentFragment : Fragment() {
     }
 
     private fun openCountryFragment(continent: Location) {
-        val countryFragment = CountryFragment()
-        val bundle = Bundle()
-        bundle.putString("continentName", continent.name)
-        countryFragment.arguments = bundle
-        continentList.clear()
+//        val countryFragment = CountryFragment()
+//        val bundle = Bundle()
+//        bundle.putString("continentName", continent.name)
+//        countryFragment.arguments = bundle
 
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container_view, countryFragment)
-            .addToBackStack(null)
-            .commit()
+//
+//        requireActivity().supportFragmentManager.beginTransaction()
+//            .replace(R.id.fragment_container_view, countryFragment)
+//            .addToBackStack(null)
+//            .commit()
+        val continentName = continent.name
+        val action = ContinentFragmentDirections.actionContinentFragmentToCountryFragment(continentName)
+        findNavController().navigate(action)
+        continentList.clear()
     }
 
     private fun loadContinents() {

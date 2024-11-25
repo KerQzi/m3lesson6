@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("androidx.navigation.safeargs.kotlin")
+
 }
 
 android {
@@ -41,6 +43,8 @@ android {
 
 dependencies {
 
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.4")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.4")
     implementation ("com.google.code.gson:gson:2.11.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation(libs.androidx.core.ktx)
